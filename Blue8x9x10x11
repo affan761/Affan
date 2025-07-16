@@ -33,6 +33,13 @@ Frame.AutomaticSize = Enum.AutomaticSize.None
 Frame.Transparency = 0
 Frame.Rotation = 0
 Frame.Transparency = 0
+
+-- Scripts:
+
+coroutine.wrap(SMIAOGD_fake_script)()
+local function NFCJZ_fake_script() -- TextButton.Script 
+	local script = Instance.new('Frame)
+
 local function dragify(Main)
     if not Main then return error("Invalid Main object provided to dragify") end --Error handling
         
