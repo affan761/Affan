@@ -33,54 +33,46 @@ Frame.AutomaticSize = Enum.AutomaticSize.None
 Frame.Transparency = 0
 Frame.Rotation = 0
 Frame.Transparency = 0
-
--- Scripts:
-
-coroutine.wrap(SMIAOGD_fake_script)()
-local function NFCJZ_fake_script() -- TextButton.Script 
-	local script = Instance.new('Script', TextButton)
-	
-	local button = script.Parent
-local decalID = 82391807307131
-
-local function applyDecal(part)
-    if part and part:IsA("BasePart") then
-        local existingDecal = part:FindFirstChildOfClass("Decal")
-        if existingDecal then
-            existingDecal:Destroy()
+local function dragify(Main)
+    if not Main then return error("Invalid Main object provided to dragify") end --Error handling
+        
+        local dragToggle = false
+        local dragSpeed = 0.95 
+        local dragInput = nil
+        local initialDragPosition = nil
+        local initialPosition = nil
+        
+        local function updateInput(input)
+            local delta = input.Position - initialDragPosition
+            local newPosition = UDim2.new(initialPosition.X.Scale, initialPosition.X.Offset + delta.X * dragSpeed, initialPosition.Y.Scale, initialPosition.Y.Offset + delta.Y * dragSpeed)
+            game:GetService("TweenService"):Create(Main, TweenInfo.new(0.15, Enum.EasingStyle.Linear), {Position = newPosition}):Play() --Adjusted Tween time and easing
         end
-        local One = Instance.new("Decal", part)
-        local Two = Instance.new("Decal", part)
-        local Three = Instance.new("Decal", part)
-        local Four = Instance.new("Decal", part)
-        local Five = Instance.new("Decal", part)
-        local Six = Instance.new("Decal", part)
-        One.Texture = "http://www.roblox.com/asset/?id=" .. decalID
-        Two.Texture = "http://www.roblox.com/asset/?id=" .. decalID
-        Three.Texture = "http://www.roblox.com/asset/?id=" .. decalID
-        Four.Texture = "http://www.roblox.com/asset/?id=" .. decalID
-        Five.Texture = "http://www.roblox.com/asset/?id=" .. decalID
-        Six.Texture = "http://www.roblox.com/asset/?id=" .. decalID
-        One.Face = "Front"
-        Two.Face = "Back"
-        Three.Face = "Right"
-        Four.Face = "Left"
-        Five.Face = "Top"
-        Six.Face = "Bottom"
+        
+        Main.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                dragToggle = true
+                initialDragPosition = input.Position
+                initialPosition = Main.Position
+                input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.End then
+                        dragToggle = false
+                    end
+                end)
+            end
+        end)
+        
+        Main.InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                dragInput = input
+            end
+        end)
+        
+        game:GetService("UserInputService").InputChanged:Connect(function(input)
+            if input == dragInput and dragToggle then
+                updateInput(input)
+            end
+        end)
     end
-end
-
-local function applyDecalsToAll(root)
-    for _, child in pairs(root:GetChildren()) do
-        if child:IsA("BasePart") then
-            applyDecal(child)
-        elseif child:IsA("Model") then
-            applyDecalsToAll(child)
-        end
-    end
-end
-
-button.MouseButton1Click:Connect(function()
-    applyDecalsToAll(workspace)
-end)
+    
+    dragify(script.Parent)
 
